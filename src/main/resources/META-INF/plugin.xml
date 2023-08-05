@@ -29,7 +29,7 @@
     </extensions>
     <actions>
         <action id="AbiHelperAction"
-                class="AbiHelperAction" text="Data Class ABI Helper"
+                class="com.github.raininforest.AbiHelperAction" text="Data Class ABI Helper"
                 description="This plugin allows to fix abi stability when modifying data class that is part of public api">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>

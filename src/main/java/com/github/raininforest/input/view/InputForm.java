@@ -27,6 +27,7 @@ public class InputForm extends DialogWrapper {
     public InputForm(AbiHelperInjector abiHelperInjector) {
         super(abiHelperInjector.getProjectInstance());
         init();
+        setTitle("Enter constructor parameters");
 
         this.presenter = abiHelperInjector.getInputPresenter();
 

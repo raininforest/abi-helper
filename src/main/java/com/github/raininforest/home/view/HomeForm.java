@@ -16,6 +16,7 @@ public class HomeForm extends DialogWrapper implements HomeView {
     public HomeForm(AbiHelperInjector injector) {
         super(injector.getProjectInstance());
         init();
+        setTitle("Abi Helper");
 
         this.presenter = injector.getHomePresenter();
         this.presenter.bindView(this);

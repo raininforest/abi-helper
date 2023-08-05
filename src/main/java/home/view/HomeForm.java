@@ -2,22 +2,22 @@ package home.view;
 
 import com.intellij.openapi.ui.DialogWrapper;
 import common.di.AbiHelperInjector;
-import home.presenter.AbiHelperPresenter;
+import home.presenter.HomePresenter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.util.List;
 
-public class AbiHelperForm extends DialogWrapper implements AbiHelperView {
+public class HomeForm extends DialogWrapper implements HomeView {
 
-    private final AbiHelperPresenter presenter;
+    private final HomePresenter presenter;
 
-    public AbiHelperForm(AbiHelperInjector injector) {
+    public HomeForm(AbiHelperInjector injector) {
         super(injector.getProjectInstance());
         init();
 
-        this.presenter = injector.getAbiHelperPresenter();
+        this.presenter = injector.getHomePresenter();
         this.presenter.bindView(this);
 
         addPropertyButton.addActionListener(e -> presenter.addPropertyButtonClicked());
@@ -30,6 +30,8 @@ public class AbiHelperForm extends DialogWrapper implements AbiHelperView {
 
     @Override
     protected void doOKAction() {
+        presenter.okPressed();
+        presenter.unbindView();
         super.doOKAction();
     }
 
@@ -44,7 +46,7 @@ public class AbiHelperForm extends DialogWrapper implements AbiHelperView {
 
     @Override
     public void showProperties(@NotNull List<String> properties) {
-        textArea.removeAll();
+        textArea.setText("");
         properties.forEach(s -> textArea.append(s + "\n"));
     }
 }

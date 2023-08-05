@@ -1,4 +1,4 @@
-package common
+package common.mvp
 
 interface Presenter {
     fun bindView(view: View)

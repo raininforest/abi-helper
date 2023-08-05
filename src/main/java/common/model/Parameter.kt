@@ -1,6 +1,6 @@
 package common.model
 
-internal data class Property(
+internal data class Parameter(
     val valOrVar: ValOrVar = ValOrVar.VAL,
     val propertyName: String = "",
     val propertyType: String = "",

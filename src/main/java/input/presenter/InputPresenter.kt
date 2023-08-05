@@ -1,7 +1,7 @@
 package input.presenter
 
 import common.model.ValOrVar
-import common.Presenter
+import common.mvp.Presenter
 
 internal interface InputPresenter : Presenter {
     fun okPressed()

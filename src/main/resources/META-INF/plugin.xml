@@ -26,8 +26,8 @@
 
     </extensions>
     <actions>
-        <action id="com.github.raininforest.abiclasshelper.AbiHelperAction"
-                class="com.github.raininforest.abiclasshelper.AbiHelperAction" text="ABI class helper"
+        <action id="AbiHelperAction"
+                class="AbiHelperAction" text="ABI class helper"
                 description="ABI class helper">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </action>

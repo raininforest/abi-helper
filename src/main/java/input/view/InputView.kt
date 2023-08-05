@@ -1,5 +1,5 @@
 package input.view
 
-import common.View
+import common.mvp.View
 
 interface InputView: View

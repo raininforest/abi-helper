@@ -1,8 +1,8 @@
 package input.presenter
 
 import common.di.AbiHelperInjector
-import common.View
-import common.model.Property
+import common.mvp.View
+import common.model.Parameter
 import common.model.ValOrVar
 import input.view.InputView
 
@@ -10,28 +10,28 @@ internal class InputPresenterImpl(injector: AbiHelperInjector) : InputPresenter 
 
     private val propertyRepository = injector.propertyRepository
 
-    private var property: Property = Property()
+    private var parameter: Parameter = Parameter()
 
     private var _view: InputView? = null
 
     override fun valOrVarChanged(valOrVar: ValOrVar) {
         println("valOrVarChanged: $valOrVar")
-        property = property.copy(valOrVar = valOrVar)
+        parameter = parameter.copy(valOrVar = valOrVar)
     }
 
     override fun propertyNameTextChanged(text: String) {
         println("propertyNameTextChanged: $text")
-        property = property.copy(propertyName = text)
+        parameter = parameter.copy(propertyName = text)
     }
 
     override fun propertyTypeTextChanged(text: String) {
         println("propertyTypeTextChanged: $text")
-        property = property.copy(propertyType = text)
+        parameter = parameter.copy(propertyType = text)
     }
 
     override fun defaultValueTextChanged(text: String) {
         println("defaultValueTextChanged: $text")
-        property = property.copy(propertyDefaultValue = text)
+        parameter = parameter.copy(propertyDefaultValue = text)
     }
 
     override fun bindView(view: View) {
@@ -43,7 +43,7 @@ internal class InputPresenterImpl(injector: AbiHelperInjector) : InputPresenter 
     }
 
     override fun okPressed() {
-        println("okPressed: $property")
-        propertyRepository.propertyAdded(property)
+        println("okPressed: $parameter")
+        propertyRepository.propertyAdded(parameter)
     }
 }

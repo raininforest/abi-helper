@@ -1,23 +1,29 @@
 package home.presenter
 
 import common.di.AbiHelperInjector
-import repository.PropertyRepository
-import common.View
-import common.model.Property
-import home.view.AbiHelperView
+import common.editor.DataClassEditor
+import common.repository.PropertyRepository
+import common.mvp.View
+import common.model.Parameter
+import home.view.HomeView
 import input.view.InputForm
 
-internal class AbiHelperPresenterImpl(private val injector: AbiHelperInjector) : AbiHelperPresenter {
-    private var _view: AbiHelperView? = null
+internal class HomePresenterImpl(private val injector: AbiHelperInjector) : HomePresenter {
+    private var _view: HomeView? = null
 
     private val propertyRepository: PropertyRepository = injector.propertyRepository
+    private val dataClassEditor: DataClassEditor = injector.dataClassEditor
 
     override fun addPropertyButtonClicked() {
         InputForm(injector).show()
     }
 
+    override fun okPressed() {
+        dataClassEditor.edit(propertyRepository.properties)
+    }
+
     override fun bindView(view: View) {
-        _view = view as? AbiHelperView
+        _view = view as? HomeView
         propertyRepository.onUpdate {
             _view?.showProperties(it.toUiProperties())
         }
@@ -27,7 +33,7 @@ internal class AbiHelperPresenterImpl(private val injector: AbiHelperInjector) :
         _view = null
     }
 
-    private fun List<Property>.toUiProperties(): List<String> =
+    private fun List<Parameter>.toUiProperties(): List<String> =
         map {
             "${it.valOrVar.value} ${it.propertyName}: ${it.propertyType} = ${it.propertyDefaultValue}"
         }

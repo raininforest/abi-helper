@@ -1,7 +1,7 @@
 package home.view
 
-import common.View
+import common.mvp.View
 
-internal interface AbiHelperView: View {
+internal interface HomeView: View {
     fun showProperties(properties: List<String>)
 }

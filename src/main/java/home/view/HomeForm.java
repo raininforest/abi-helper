@@ -43,6 +43,7 @@ public class HomeForm extends DialogWrapper implements HomeView {
     private JPanel mainPanel;
     private JButton addPropertyButton;
     private JTextArea textArea;
+    private JLabel infoLabel;
 
     @Override
     public void showProperties(@NotNull List<String> properties) {

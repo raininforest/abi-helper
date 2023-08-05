@@ -1,9 +1,9 @@
 package com.github.raininforest.common.editor
 
+import com.github.raininforest.common.model.Parameter
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.project.Project
-import com.github.raininforest.common.model.Parameter
 import org.jetbrains.kotlin.idea.core.util.toPsiFile
 import org.jetbrains.kotlin.psi.*
 import org.jetbrains.kotlin.psi.psiUtil.getChildrenOfType
@@ -125,6 +125,11 @@ internal class DataClassEditorImpl(private val project: Project) : DataClassEdit
             }$rBrace"
         )
 
-        body.addAfter(copy, body.getChildrenOfType<KtSecondaryConstructor>().last())
+        val addedCopy = body.addAfter(copy, body.getChildrenOfType<KtSecondaryConstructor>().last())
+        val annotationElement = factory.createAnnotationEntry(
+            text = "\n@Deprecated(message = \"For abi stability only\", level = DeprecationLevel.HIDDEN)"
+        )
+        body.addBefore(factory.createNewLine(2), addedCopy)
+        body.addBefore(annotationElement, addedCopy)
     }
 }

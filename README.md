@@ -2,7 +2,7 @@
 This plugin allows to keep abi stability when modifying kotlin class that is part of public api in your library.
 
 ## how to use
-1. Download latest .jar from Releases and install it to IDE
+1. Download latest .jar from [Releases](https://github.com/raininforest/abi-helper/releases) and install it to IDE
 2. Open data class you want to extend by new parameters
 <details>
   <summary>3. Run the plugin from Tools menu</summary>

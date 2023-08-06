@@ -7,6 +7,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.List;
 
 public class HomeForm extends DialogWrapper implements HomeView {
@@ -22,6 +24,20 @@ public class HomeForm extends DialogWrapper implements HomeView {
         this.presenter.bindView(this);
 
         addPropertyButton.addActionListener(e -> presenter.addPropertyButtonClicked());
+        constructorCheckbox.addItemListener(e -> {
+            final boolean isSelected;
+            if (e.getStateChange() == ItemEvent.SELECTED) isSelected = true;
+            else if (e.getStateChange() == ItemEvent.DESELECTED) isSelected = false;
+            else return;
+            presenter.constructorCheckboxChecked(isSelected);
+        });
+        copyCheckbox.addItemListener(e -> {
+            final boolean isSelected;
+            if (e.getStateChange() == ItemEvent.SELECTED) isSelected = true;
+            else if (e.getStateChange() == ItemEvent.DESELECTED) isSelected = false;
+            else return;
+            presenter.copyCheckboxChecked(isSelected);
+        });
     }
 
     @Override
@@ -45,6 +61,8 @@ public class HomeForm extends DialogWrapper implements HomeView {
     private JButton addPropertyButton;
     private JTextArea textArea;
     private JLabel infoLabel;
+    private JCheckBox constructorCheckbox;
+    private JCheckBox copyCheckbox;
 
     @Override
     public void showProperties(@NotNull List<String> properties) {

@@ -1,6 +1,7 @@
 package com.github.raininforest.common.editor
 
 import com.github.raininforest.common.model.Parameter
+import com.github.raininforest.common.repository.SettingsStore
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.project.Project
@@ -8,7 +9,10 @@ import org.jetbrains.kotlin.idea.core.util.toPsiFile
 import org.jetbrains.kotlin.psi.*
 import org.jetbrains.kotlin.psi.psiUtil.getChildrenOfType
 
-internal class DataClassEditorImpl(private val project: Project) : DataClassEditor {
+internal class DataClassEditorImpl(
+    private val project: Project,
+    private val settingsStore: SettingsStore
+) : DataClassEditor {
 
     private val factory = KtPsiFactory(project, true)
 
@@ -27,8 +31,12 @@ internal class DataClassEditorImpl(private val project: Project) : DataClassEdit
             val newKtParameters = newParameters.mapToKtParameters()
 
             dataClass.addParametersToPrimaryConstructor(newParameters = newKtParameters)
-            dataClass.addSecondaryConstructor(existingParameters, newKtParameters)
-            dataClass.addCopy(existingParameters, newKtParameters)
+            if (settingsStore.shouldGenerateConstructor) {
+                dataClass.addSecondaryConstructor(existingParameters, newKtParameters)
+            }
+            if (settingsStore.shouldGenerateCopy) {
+                dataClass.addCopy(existingParameters, newKtParameters)
+            }
         }
     }
 
@@ -125,7 +133,10 @@ internal class DataClassEditorImpl(private val project: Project) : DataClassEdit
             }$rBrace"
         )
 
-        val addedCopy = body.addAfter(copy, body.getChildrenOfType<KtSecondaryConstructor>().last())
+        val secondaryConstructors = body.getChildrenOfType<KtSecondaryConstructor>()
+        val anchorElement = if (secondaryConstructors.isEmpty()) body.lBrace
+            else secondaryConstructors.last()
+        val addedCopy = body.addAfter(copy, anchorElement)
         val annotationElement = factory.createAnnotationEntry(
             text = "\n@Deprecated(message = \"For abi stability only\", level = DeprecationLevel.HIDDEN)"
         )

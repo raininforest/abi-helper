@@ -5,6 +5,7 @@ import com.github.raininforest.common.editor.DataClassEditor
 import com.github.raininforest.common.repository.PropertyRepository
 import com.github.raininforest.common.mvp.View
 import com.github.raininforest.common.model.Parameter
+import com.github.raininforest.common.repository.SettingsStore
 import com.github.raininforest.home.view.HomeView
 import com.github.raininforest.input.view.InputForm
 
@@ -13,9 +14,18 @@ internal class HomePresenterImpl(private val injector: AbiHelperInjector) : Home
 
     private val propertyRepository: PropertyRepository = injector.propertyRepository
     private val dataClassEditor: DataClassEditor = injector.dataClassEditor
+    private val settingsStore: SettingsStore = injector.settingsStore
 
     override fun addPropertyButtonClicked() {
         InputForm(injector).show()
+    }
+
+    override fun constructorCheckboxChecked(isChecked: Boolean) {
+        settingsStore.shouldGenerateConstructor = isChecked
+    }
+
+    override fun copyCheckboxChecked(isChecked: Boolean) {
+        settingsStore.shouldGenerateCopy = isChecked
     }
 
     override fun okPressed() {

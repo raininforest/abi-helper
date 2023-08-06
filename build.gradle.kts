@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.github.raininforest"
-version = "0.1-SNAPSHOT-2"
+version = "0.1"
 
 repositories {
     mavenCentral()

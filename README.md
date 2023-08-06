@@ -1,5 +1,5 @@
 # abi-helper
-This plugin allows to keep abi stability when modifying data class that is part of public api in your library.
+This plugin allows to keep abi stability when modifying kotlin class that is part of public api in your library.
 
 ## how to use
 1. Download latest .jar from Releases and install it to IDE
@@ -17,10 +17,9 @@ This plugin allows to keep abi stability when modifying data class that is part 
 <details>
   <summary>5. Enter parameter</summary>
   <img src="https://github.com/raininforest/abi-helper/raw/main/screenshots/03.png" alt="drawing">
-  <img src="https://github.com/raininforest/abi-helper/raw/main/screenshots/04.png" alt="" width="520" height="600">
 </details>
 
 <details>
   <summary>6. Done!</summary>
-  <img src="https://github.com/raininforest/abi-helper/raw/main/screenshots/05.png" alt="drawing">
+  <img src="https://github.com/raininforest/abi-helper/raw/main/screenshots/04.png" alt="drawing">
 </details>
